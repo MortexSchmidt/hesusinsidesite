@@ -33,17 +33,11 @@
                     <a href="games.html">Игры</a>
                 </div>
                 <div class="theme-switcher">
-                    <button id="theme-toggle-btn" class="pill">Тема</button>
-                    <div id="theme-dropdown" class="theme-dropdown">
-              <button class="theme-option" data-theme="twitch">
-                <img src="https://img.freepik.com/premium-vector/twitch-logo_578229-259.jpg" class="theme-logo" alt="Twitch">
-                <span>Twitch</span>
-              </button>
-              <button class="theme-option" data-theme="kick">
-                <img src="https://img.freepik.com/premium-vector/kick-logo-vector-download-kick-streaming-icon-logo-vector-eps_691560-10814.jpg" class="theme-logo" alt="Kick">
-                <span>Kick</span>
-              </button>
-            </div>
+                    <button id="theme-toggle-btn" class="btn">Тема</button>
+                    <div class="theme-options">
+                        <a href="#" data-theme="twitch">Twitch</a>
+                        <a href="#" data-theme="kick">Kick</a>
+                    </div>
                 </div>
                 <div class="chat-switcher">
                     <button id="chat-select-btn" class="btn">Чат</button>
@@ -52,7 +46,6 @@
                         <a href="#" data-chat="kick">Kick</a>
                     </div>
                 </div>
-                <button id="chat-toggle-btn" class="btn">Открыть чат</button>
             </div>
             <button id="menu-toggle-btn">
                 <span class="line"></span>
@@ -152,6 +145,7 @@
     </main>
 
     <div id="chat-container">
+        <button id="chat-close-btn">&times;</button>
         <div id="twitch-chat-panel" class="chat-panel">
             <iframe
                 src="https://www.twitch.tv/embed/jesusavgn/chat?parent=hesusinside.netlify.app&darkpopout"

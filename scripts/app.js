@@ -8,9 +8,18 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const switcher = $('.theme-switcher');
   if (!switcher) return;
 
-  const toggleBtn = $('#theme-toggle-btn', switcher);
-  const dropdown = $('#theme-dropdown', switcher);
-  const themeOptions = $$('.theme-option', switcher);
+  const toggleBtn = document.getElementById('theme-toggle-btn');
+  const themeOptions = document.querySelector('.theme-options');
+  const chatContainer = document.getElementById('chat-container');
+  const chatSelectLinks = document.querySelectorAll('.chat-options a');
+  const twitchChatPanel = document.getElementById('twitch-chat-panel');
+  const kickChatPanel = document.getElementById('kick-chat-panel');
+  const chatCloseBtn = document.getElementById('chat-close-btn');
+  const body = document.body;
+
+  const menuToggleBtn = document.getElementById('menu-toggle-btn');
+  const navRight = document.querySelector('.nav-right');
+  const mainNav = document.querySelector('.nav');
 
   // 1. Установить тему при загрузке
   let currentTheme = localStorage.getItem('theme') || 'twitch';
@@ -96,6 +105,7 @@ const chatToggleButton = document.getElementById('chat-toggle-btn');
 const chatSelectLinks = document.querySelectorAll('.chat-options a');
 const twitchChatPanel = document.getElementById('twitch-chat-panel');
 const kickChatPanel = document.getElementById('kick-chat-panel');
+const chatCloseBtn = document.getElementById('chat-close-btn');
 const body = document.body;
 
 const menuToggleBtn = document.getElementById('menu-toggle-btn');
@@ -115,7 +125,7 @@ if (chatContainer && chatToggleButton) {
   let selectedChat = 'twitch'; // Чат по умолчанию
   twitchChatPanel.classList.add('is-active'); // Показываем чат твича при загрузке
 
-  // Переключение между чатами
+  // Переключение между чатами и открытие панели
   chatSelectLinks.forEach(link => {
       link.addEventListener('click', (e) => {
           e.preventDefault();
@@ -131,21 +141,22 @@ if (chatContainer && chatToggleButton) {
               kickChatPanel.classList.add('is-active');
           }
           
-          // На мобильных устройствах сразу открываем чат после выбора
-          if (window.innerWidth <= 820) {
-              chatContainer.classList.add('is-open');
-              body.classList.add('chat-open');
-              // Закрываем мобильное меню, если оно было открыто
+          // Открываем контейнер чата
+          chatContainer.classList.add('is-open');
+          body.classList.add('chat-open');
+
+          // Закрываем мобильное меню, если оно было открыто
+          if (navRight.classList.contains('is-open')) {
               navRight.classList.remove('is-open');
               mainNav.classList.remove('is-open');
           }
       });
   });
 
-  // Открытие/закрытие контейнера чата
-  chatToggleButton.addEventListener('click', () => {
-      chatContainer.classList.toggle('is-open');
-      body.classList.toggle('chat-open');
+  // Закрытие контейнера чата
+  chatCloseBtn.addEventListener('click', () => {
+      chatContainer.classList.remove('is-open');
+      body.classList.remove('chat-open');
   });
 }
 

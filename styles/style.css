@@ -265,7 +265,7 @@ body{
     }
 
     #chat-toggle-btn {
-        margin-top: 1.5rem;
+        display: none; /* Эта кнопка больше не используется */
     }
 
     #menu-toggle-btn {
@@ -533,6 +533,23 @@ body{
 
 .chat-panel.is-active {
     display: block; /* Показываем только активный чат */
+}
+
+#chat-close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 2001;
 }
 
 body.chat-open {
