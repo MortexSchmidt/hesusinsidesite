@@ -94,6 +94,12 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const chatContainer = document.getElementById('twitch-chat-container');
 const chatToggleBtn = document.getElementById('chat-toggle-btn');
 const chatCloseBtn = document.getElementById('chat-close-btn');
+const chatPanel = document.getElementById('chat-panel');
+const body = document.body;
+
+const menuToggleBtn = document.getElementById('menu-toggle-btn');
+const navRight = document.querySelector('.nav-right');
+const mainNav = document.querySelector('.nav');
 
 if (chatContainer && chatToggleBtn && chatCloseBtn) {
   chatToggleBtn.addEventListener('click', () => {
@@ -103,4 +109,39 @@ if (chatContainer && chatToggleBtn && chatCloseBtn) {
   chatCloseBtn.addEventListener('click', () => {
     chatContainer.classList.remove('is-visible');
   });
+
+  chatToggleBtn.addEventListener('click', () => {
+    chatPanel.classList.toggle('is-open');
+    body.classList.toggle('chat-open');
+  });
 }
+
+// Логика для мобильного меню
+if (menuToggleBtn && navRight && mainNav) {
+  menuToggleBtn.addEventListener('click', () => {
+    navRight.classList.toggle('is-open');
+    mainNav.classList.toggle('is-open'); // Для анимации иконки бургера
+  });
+}
+
+// Плавный скролл для якорных ссылок
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const targetId = this.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+
+    if (targetElement) {
+      // Добавляем смещение для хедера
+      const headerOffset = 70;
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+           top: offsetPosition,
+           behavior: "smooth"
+      });
+    }
+  });
+});
