@@ -204,6 +204,11 @@ if (chatCloseBtn) {
 
   // Проверка статуса Twitch через TwitchTracker API (более надёжно)
   async function checkTwitchStatus() {
+    // Показать анимацию загрузки
+    twitchDot.classList.add('loading');
+    twitchText.textContent = 'Проверяем...';
+    twitchWatch.style.display = 'none';
+    
     try {
       // Используем несколько методов проверки
       const methods = [
@@ -235,6 +240,9 @@ if (chatCloseBtn) {
         }
       }
       
+      // Убрать анимацию загрузки
+      twitchDot.classList.remove('loading');
+      
       if (isLive) {
         twitchStatus.classList.add('online', 'twitch');
         twitchText.textContent = 'В эфире';
@@ -246,6 +254,7 @@ if (chatCloseBtn) {
       }
     } catch (error) {
       console.log('Twitch status check failed:', error);
+      twitchDot.classList.remove('loading');
       twitchStatus.classList.remove('online', 'twitch');
       twitchText.textContent = 'Офлайн';
       twitchWatch.style.display = 'none';
@@ -254,6 +263,11 @@ if (chatCloseBtn) {
 
   // Проверка статуса Kick
   async function checkKickStatus() {
+    // Показать анимацию загрузки
+    kickDot.classList.add('loading');
+    kickText.textContent = 'Проверяем...';
+    kickWatch.style.display = 'none';
+    
     try {
       // Используем публичный CORS proxy
       const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://kick.com/api/v1/channels/jesusavgn'));
@@ -261,6 +275,9 @@ if (chatCloseBtn) {
       const kickData = JSON.parse(data.contents);
       
       const isLive = kickData && kickData.livestream && kickData.livestream.is_live === true;
+      
+      // Убрать анимацию загрузки
+      kickDot.classList.remove('loading');
       
       if (isLive) {
         kickStatus.classList.add('online', 'kick');
@@ -273,6 +290,7 @@ if (chatCloseBtn) {
       }
     } catch (error) {
       console.log('Kick status check failed:', error);
+      kickDot.classList.remove('loading');
       kickStatus.classList.remove('online', 'kick');
       kickText.textContent = 'Офлайн';
       kickWatch.style.display = 'none';
