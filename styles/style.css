@@ -395,39 +395,127 @@ body{
   color: var(--primary);
 }
 
-/* Scroll animations */
-.section, .hero > *, .widgets > *, .news-item {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
+/* Scroll animations - отключаем на мобильных для производительности */
+@media (min-width: 768px) {
+  .section, .hero > *, .widgets > *, .news-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
 
-.section.in-view, .hero > *.in-view, .widgets > *.in-view, .news-item.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
+  .section.in-view, .hero > *.in-view, .widgets > *.in-view, .news-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-/* Delay for staggered animations */
-.hero-copy > *:nth-child(2) { transition-delay: 100ms; }
-.hero-copy > *:nth-child(3) { transition-delay: 200ms; }
-.hero-copy > *:nth-child(4) { transition-delay: 300ms; }
-.widgets > *:nth-child(1) { transition-delay: 100ms; }
-.widgets > *:nth-child(2) { transition-delay: 200ms; }
-.widgets > *:nth-child(3) { transition-delay: 300ms; }
+  /* Delay for staggered animations */
+  .hero-copy > *:nth-child(2) { transition-delay: 100ms; }
+  .hero-copy > *:nth-child(3) { transition-delay: 200ms; }
+  .hero-copy > *:nth-child(4) { transition-delay: 300ms; }
+  .widgets > *:nth-child(1) { transition-delay: 100ms; }
+  .widgets > *:nth-child(2) { transition-delay: 200ms; }
+  .widgets > *:nth-child(3) { transition-delay: 300ms; }
+}
 
 
 /* Responsive */
 @media (max-width: 980px){
-  .hero{ grid-template-columns: 1fr; gap: 32px; }
+  .hero{ grid-template-columns: 1fr; gap: 32px; text-align: center; }
   .widgets{ grid-template-columns: 1fr 1fr; }
-  .footer-inner{ grid-template-columns: 1fr; text-align: center; }
+  .footer-inner{ grid-template-columns: 1fr; text-align: center; gap: 12px; }
   .footer-nav { justify-content: center; }
+  .nav{ padding: 8px 16px; }
+  .nav-actions{ gap: 2px; }
+  .pill{ padding: 6px 10px; font-size: 14px; }
+  .nav-link{ padding: 6px 8px; font-size: 14px; }
 }
+
+@media (max-width: 768px){
+  .nav{ flex-direction: column; gap: 8px; padding: 12px 16px; }
+  .nav-actions{ flex-wrap: wrap; justify-content: center; gap: 4px; }
+  .hero{ margin-top: 20px; padding: 0 16px; }
+  .hero-copy h1{ font-size: clamp(28px, 8vw, 48px); }
+  .lead{ font-size: 16px; }
+  .cta{ flex-direction: column; gap: 8px; align-items: center; }
+  .btn{ width: 100%; max-width: 280px; justify-content: center; }
+  .widgets{ grid-template-columns: 1fr; gap: 12px; }
+  .card{ padding: 16px; min-height: auto; }
+  .section{ padding: 20px 16px; }
+  .section-inner{ padding: 16px; }
+  .section-inner h2{ font-size: 24px; }
+  .news-grid{ grid-template-columns: 1fr; }
+  .stream-status{ padding: 12px; }
+  .platform-status{ padding: 6px 10px; flex-wrap: wrap; }
+  .platform-logo{ width: 18px; height: 18px; }
+  .status-text{ font-size: 13px; }
+  .watch-btn{ padding: 4px 8px; font-size: 11px; margin-left: 0; margin-top: 4px; }
+  .stream-status-header{ flex-direction: column; gap: 8px; align-items: center; }
+  .stream-status-title{ text-align: center !important; font-size: 16px; }
+  .stream-note{ font-size: 12px; padding: 8px; }
+  .footer-inner{ padding: 16px; }
+  .foreign-agent-notice{ margin-top: 12px; padding: 8px 12px; font-size: 10px; }
+}
+
 @media (max-width: 640px){
-  .nav{ padding: 10px; }
-  .hero{ margin-top: 34px }
-  .widgets{ grid-template-columns: 1fr }
-  .news-grid{ grid-template-columns: 1fr }
+  .nav{ padding: 8px 12px; }
+  .hero{ margin-top: 16px; padding: 0 12px; }
+  .hero-copy h1{ font-size: clamp(24px, 10vw, 36px); }
+  .lead{ font-size: 15px; }
+  .btn{ padding: 10px 16px; font-size: 14px; }
+  .section{ padding: 16px 12px; }
+  .section-inner{ padding: 12px; }
+  .card{ padding: 12px; }
+  .stream-status{ gap: 8px; }
+  .platform-status{ flex-direction: column; align-items: flex-start; gap: 6px; }
+  .watch-btn{ align-self: flex-end; margin-top: 0; }
+  .dot{ width: 8px; height: 8px; }
+  .twitch-chat{ width: 100%; max-width: 100%; }
+  .theme-dropdown, .chat-dropdown{ min-width: 120px; font-size: 13px; }
+  .theme-option, .chat-option{ padding: 6px 8px; }
+  .theme-logo{ width: 16px; height: 16px; }
+}
+
+@media (max-width: 480px){
+  .nav{ padding: 6px 8px; }
+  .brand{ font-size: 16px; }
+  .brand img{ width: 24px; height: 24px; }
+  .nav-actions{ gap: 2px; }
+  .pill{ padding: 4px 8px; font-size: 12px; }
+  .nav-link{ padding: 4px 6px; font-size: 12px; }
+  .hero{ padding: 0 8px; }
+  .hero-copy h1{ font-size: clamp(20px, 12vw, 32px); }
+  .lead{ font-size: 14px; }
+  .disclaimer{ font-size: 12px; }
+  .btn{ padding: 8px 12px; font-size: 13px; }
+  .section{ padding: 12px 8px; }
+  .section-inner{ padding: 8px; }
+  .section-inner h2{ font-size: 20px; }
+  .card h3{ font-size: 16px; }
+  .stream-status{ padding: 8px; }
+  .platform-status{ padding: 4px 6px; }
+  .status-text{ font-size: 12px; }
+  .watch-btn{ font-size: 10px; padding: 3px 6px; }
+  .stream-note{ font-size: 11px; padding: 6px; }
+  .info-icon{ width: 14px; height: 14px; }
+  .foreign-agent-notice{ font-size: 9px; padding: 6px 8px; }
+  .age-restriction{ font-size: 8px; padding: 1px 4px; }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 360px){
+  .nav{ flex-direction: column; padding: 4px 6px; }
+  .brand{ font-size: 14px; }
+  .brand img{ width: 20px; height: 20px; }
+  .nav-actions{ flex-wrap: wrap; }
+  .pill, .nav-link{ font-size: 11px; padding: 3px 6px; }
+  .hero-copy h1{ font-size: clamp(18px, 15vw, 28px); }
+  .lead{ font-size: 13px; }
+  .btn{ font-size: 12px; padding: 6px 10px; }
+  .section-inner h2{ font-size: 18px; }
+  .platform-status{ gap: 4px; }
+  .platform-logo{ width: 16px; height: 16px; }
+  .stream-note{ flex-direction: column; gap: 4px; text-align: left; }
+  .info-icon{ align-self: flex-start; }
 }
 
 /* Theme Switcher Dropdown */

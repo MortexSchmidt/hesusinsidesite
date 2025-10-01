@@ -73,8 +73,10 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   });
 })();
 
-// Анимации при прокрутке
+// Анимации при прокрутке (только на десктопе для производительности)
 (function scrollAnimations() {
+  if (window.innerWidth < 768) return; // Отключаем на мобильных
+  
   const animatedElements = $$('.section, .hero > *, .widgets > *, .news-item');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -317,45 +319,36 @@ if (chatCloseBtn) {
   }, 60000);
 })();
 
-// Блокировка для мобильных и планшетов
+// Блокировка для мобильных и планшетов - теперь отключена, так как сайт адаптивный
 (function deviceBlocker(){
   const overlay = document.getElementById('mobile-block');
   if (!overlay) return;
 
-  const BYPASS_KEY = 'mobileBypass';
+  // Отключаем блокировку, так как сайт теперь полностью адаптивный
+  // Оставляем только для очень старых устройств или браузеров
+  const isVeryOldDevice = navigator.userAgent.includes('Android 4') || 
+                          navigator.userAgent.includes('iPhone OS 9') ||
+                          window.innerWidth < 320;
 
-  function isTouchDevice() {
-    return (
-      'ontouchstart' in window ||
-      navigator.maxTouchPoints > 0 ||
-      navigator.msMaxTouchPoints > 0
-    );
-  }
+  if (isVeryOldDevice) {
+    const BYPASS_KEY = 'mobileBypass';
+    const userBypassed = localStorage.getItem(BYPASS_KEY) === '1';
+    
+    if (!userBypassed) {
+      overlay.classList.add('visible');
+      overlay.removeAttribute('aria-hidden');
+      document.body.style.overflow = 'hidden';
+    }
 
-  function isSmallViewport() {
-    // Блокируем когда ширина окна меньше 1024 и это тач-устройство или мобильный UA
-    return window.innerWidth <= 1024;
-  }
-
-  const ua = navigator.userAgent.toLowerCase();
-  const isMobileUA = /(iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm|mobile)/i.test(ua);
-
-  const userBypassed = localStorage.getItem(BYPASS_KEY) === '1';
-  const shouldBlock = (isTouchDevice() || isMobileUA) && isSmallViewport() && !userBypassed;
-  if (shouldBlock) {
-    overlay.classList.add('visible');
-    overlay.removeAttribute('aria-hidden');
-    document.body.style.overflow = 'hidden';
-  }
-
-  // Обработчик кнопки «Открыть всё равно»
-  const bypassBtn = document.getElementById('mobile-bypass-btn');
-  if (bypassBtn) {
-    bypassBtn.addEventListener('click', () => {
-      localStorage.setItem(BYPASS_KEY, '1');
-      overlay.classList.remove('visible');
-      overlay.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    });
+    // Обработчик кнопки «Открыть всё равно»
+    const bypassBtn = document.getElementById('mobile-bypass-btn');
+    if (bypassBtn) {
+      bypassBtn.addEventListener('click', () => {
+        localStorage.setItem(BYPASS_KEY, '1');
+        overlay.classList.remove('visible');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    }
   }
 })();
