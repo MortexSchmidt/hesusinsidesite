@@ -90,7 +90,7 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   });
 })();
 
-// Twitch Chat Toggle
+// Chat Toggle with Provider Selection
 const chatContainer = document.getElementById('twitch-chat-container');
 const chatToggleBtn = document.getElementById('chat-toggle-btn');
 const chatCloseBtn = document.getElementById('chat-close-btn');
@@ -133,46 +133,51 @@ function applyChatProvider(provider) {
 
 applyChatProvider(defaultProvider);
 
-if (chatContainer && chatToggleBtn && chatCloseBtn) {
-  chatToggleBtn.addEventListener('click', () => {
-    chatContainer.classList.add('is-visible');
-  });
-
+if (chatCloseBtn) {
   chatCloseBtn.addEventListener('click', () => {
     chatContainer.classList.remove('is-visible');
   });
 }
 
-// Dropdown для выбора провайдера чата (аналогично теме)
+// Combined Chat Toggle and Provider Selection
 (function chatDropdown() {
   const switcher = document.querySelector('.chat-switcher');
   if (!switcher) return;
 
-  const toggleBtn = document.getElementById('chat-provider-btn');
+  const toggleBtn = document.getElementById('chat-toggle-btn');
   const dropdown = document.getElementById('chat-dropdown');
   const options = Array.from(dropdown ? dropdown.querySelectorAll('.chat-option') : []);
 
-  // Установить текущую платформу на кнопку
-  function setBtnLabel(provider) {
-    toggleBtn.textContent = provider === 'kick' ? 'Kick' : 'Twitch';
+  // Показать дропдаун при клике на кнопку "Чат"
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('is-open');
+    });
   }
-  setBtnLabel(defaultProvider);
 
-  // Показать/скрыть
-  toggleBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle('is-open');
-  });
+  // Закрыть дропдаун при клике вне его
   document.addEventListener('click', () => dropdown.classList.remove('is-open'));
 
+  // Выбор платформы и открытие чата
   options.forEach(opt => {
     opt.addEventListener('click', () => {
       const provider = opt.dataset.chat;
       if (!provider) return;
+      
+      // Сохранить выбор
       localStorage.setItem(CHAT_PROVIDER_KEY, provider);
+      
+      // Применить провайдера
       applyChatProvider(provider);
-      setBtnLabel(provider);
+      
+      // Закрыть дропдаун
       dropdown.classList.remove('is-open');
+      
+      // Открыть чат
+      if (chatContainer) {
+        chatContainer.classList.add('is-visible');
+      }
     });
   });
 })();
