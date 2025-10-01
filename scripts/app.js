@@ -197,30 +197,58 @@ if (chatCloseBtn) {
   const kickText = document.getElementById('kick-text');
   const twitchDot = document.getElementById('twitch-dot');
   const kickDot = document.getElementById('kick-dot');
+  const twitchWatch = document.getElementById('twitch-watch');
+  const kickWatch = document.getElementById('kick-watch');
 
   if (!twitchStatus || !kickStatus) return;
 
-  // Проверка статуса Twitch через Helix API (требует CORS proxy)
+  // Проверка статуса Twitch через TwitchTracker API (более надёжно)
   async function checkTwitchStatus() {
     try {
-      // Используем публичный CORS proxy для обхода CORS
-      const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.twitch.tv/jesusavgn'));
-      const data = await response.json();
-      
-      // Простая проверка: если в HTML есть "isLiveBroadcast", значит стрим идёт
-      const isLive = data.contents && data.contents.includes('"isLiveBroadcast":true');
+      // Используем несколько методов проверки
+      const methods = [
+        // Метод 1: Twitch Embed API
+        async () => {
+          const response = await fetch('https://api.twitch.tv/helix/streams?user_login=jesusavgn', {
+            headers: {
+              'Client-ID': 'kimne78kx3ncx6brgo4mv6wki5h1ko'
+            }
+          });
+          const data = await response.json();
+          return data.data && data.data.length > 0;
+        },
+        // Метод 2: Проверка через CORS proxy
+        async () => {
+          const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://twitchtracker.com/jesusavgn'));
+          const data = await response.json();
+          return data.contents && data.contents.includes('Live');
+        }
+      ];
+
+      let isLive = false;
+      for (const method of methods) {
+        try {
+          isLive = await method();
+          if (isLive) break;
+        } catch (e) {
+          continue;
+        }
+      }
       
       if (isLive) {
         twitchStatus.classList.add('online', 'twitch');
         twitchText.textContent = 'В эфире';
+        twitchWatch.style.display = 'inline-block';
       } else {
         twitchStatus.classList.remove('online', 'twitch');
         twitchText.textContent = 'Офлайн';
+        twitchWatch.style.display = 'none';
       }
     } catch (error) {
       console.log('Twitch status check failed:', error);
       twitchStatus.classList.remove('online', 'twitch');
-      twitchText.textContent = 'Статус неизвестен';
+      twitchText.textContent = 'Офлайн';
+      twitchWatch.style.display = 'none';
     }
   }
 
@@ -228,27 +256,26 @@ if (chatCloseBtn) {
   async function checkKickStatus() {
     try {
       // Используем публичный CORS proxy
-      const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://kick.com/jesusavgn'));
+      const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://kick.com/api/v1/channels/jesusavgn'));
       const data = await response.json();
+      const kickData = JSON.parse(data.contents);
       
-      // Простая проверка: если в HTML есть признаки live стрима
-      const isLive = data.contents && (
-        data.contents.includes('"is_live":true') || 
-        data.contents.includes('livestream') ||
-        data.contents.includes('live-indicator')
-      );
+      const isLive = kickData && kickData.livestream && kickData.livestream.is_live === true;
       
       if (isLive) {
         kickStatus.classList.add('online', 'kick');
         kickText.textContent = 'В эфире';
+        kickWatch.style.display = 'inline-block';
       } else {
         kickStatus.classList.remove('online', 'kick');
         kickText.textContent = 'Офлайн';
+        kickWatch.style.display = 'none';
       }
     } catch (error) {
       console.log('Kick status check failed:', error);
       kickStatus.classList.remove('online', 'kick');
-      kickText.textContent = 'Статус неизвестен';
+      kickText.textContent = 'Офлайн';
+      kickWatch.style.display = 'none';
     }
   }
 

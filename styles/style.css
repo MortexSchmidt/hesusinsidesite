@@ -137,6 +137,12 @@ body{
   background: var(--bg-2);
   border-radius: var(--radius);
 }
+.stream-status-title {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
 .platform-status {
   display: flex;
   align-items: center;
@@ -156,6 +162,30 @@ body{
 .status-text {
   font-weight: 600;
   font-size: 14px;
+  flex-grow: 1;
+}
+.watch-btn {
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s;
+  margin-left: auto;
+}
+.twitch-btn {
+  background: #9146ff;
+}
+.twitch-btn:hover {
+  background: #772ce8;
+}
+.kick-btn {
+  background: #53fc18;
+  color: #0b0f1a;
+}
+.kick-btn:hover {
+  background: #48e014;
 }
 .twitch-dot {
   background: #6c757d; /* Серый по умолчанию */
