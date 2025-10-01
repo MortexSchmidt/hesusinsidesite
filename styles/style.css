@@ -212,6 +212,34 @@ body{
 .kick-btn:hover {
   background: #48e014;
 }
+
+.stream-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  background: var(--bg-3);
+  border-radius: var(--radius);
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  text-align: right;
+}
+.info-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.tg-link {
+  color: var(--text-muted) !important;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--text-muted);
+}
+.tg-link:hover {
+  color: var(--text-muted) !important;
+  border-bottom: 1px solid var(--text-muted);
+}
 .twitch-dot {
   background: #6c757d; /* Серый по умолчанию */
   position: relative;
