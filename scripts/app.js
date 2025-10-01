@@ -94,6 +94,44 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const chatContainer = document.getElementById('twitch-chat-container');
 const chatToggleBtn = document.getElementById('chat-toggle-btn');
 const chatCloseBtn = document.getElementById('chat-close-btn');
+const chatIframe = chatContainer ? chatContainer.querySelector('iframe') : null;
+const chatTitle = document.getElementById('chat-title');
+
+// Хранилище инициализации провайдера чата
+const CHAT_PROVIDER_KEY = 'chatProvider';
+const defaultProvider = localStorage.getItem(CHAT_PROVIDER_KEY) || 'twitch';
+
+function getTwitchChatSrc() {
+  try {
+    const host = location.hostname;
+    const parents = [host, 'hesusinside.netlify.app', 'localhost', '127.0.0.1']
+      .filter(Boolean)
+      .filter((v, i, a) => a.indexOf(v) === i);
+    const parentParams = parents.map(p => `parent=${encodeURIComponent(p)}`).join('&');
+    return `https://www.twitch.tv/embed/jesusavgn/chat?${parentParams}&darkpopout`;
+  } catch (e) {
+    return 'https://www.twitch.tv/embed/jesusavgn/chat?darkpopout';
+  }
+}
+
+function getKickChatSrc() {
+  // Kick не требует parent. Стандартный виджет чата:
+  // Используем /embed/ для чата канала jesusavgn
+  return 'https://kick.com/embed/chat/jesusavgn';
+}
+
+function applyChatProvider(provider) {
+  if (!chatIframe) return;
+  if (provider === 'kick') {
+    chatIframe.src = getKickChatSrc();
+    if (chatTitle) chatTitle.textContent = 'Чат Kick';
+  } else {
+    chatIframe.src = getTwitchChatSrc();
+    if (chatTitle) chatTitle.textContent = 'Чат Twitch';
+  }
+}
+
+applyChatProvider(defaultProvider);
 
 if (chatContainer && chatToggleBtn && chatCloseBtn) {
   chatToggleBtn.addEventListener('click', () => {
@@ -104,3 +142,80 @@ if (chatContainer && chatToggleBtn && chatCloseBtn) {
     chatContainer.classList.remove('is-visible');
   });
 }
+
+// Dropdown для выбора провайдера чата (аналогично теме)
+(function chatDropdown() {
+  const switcher = document.querySelector('.chat-switcher');
+  if (!switcher) return;
+
+  const toggleBtn = document.getElementById('chat-provider-btn');
+  const dropdown = document.getElementById('chat-dropdown');
+  const options = Array.from(dropdown ? dropdown.querySelectorAll('.chat-option') : []);
+
+  // Установить текущую платформу на кнопку
+  function setBtnLabel(provider) {
+    toggleBtn.textContent = provider === 'kick' ? 'Kick' : 'Twitch';
+  }
+  setBtnLabel(defaultProvider);
+
+  // Показать/скрыть
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('is-open');
+  });
+  document.addEventListener('click', () => dropdown.classList.remove('is-open'));
+
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      const provider = opt.dataset.chat;
+      if (!provider) return;
+      localStorage.setItem(CHAT_PROVIDER_KEY, provider);
+      applyChatProvider(provider);
+      setBtnLabel(provider);
+      dropdown.classList.remove('is-open');
+    });
+  });
+})();
+
+// Блокировка для мобильных и планшетов
+(function deviceBlocker(){
+  const overlay = document.getElementById('mobile-block');
+  if (!overlay) return;
+
+  const BYPASS_KEY = 'mobileBypass';
+
+  function isTouchDevice() {
+    return (
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
+      navigator.msMaxTouchPoints > 0
+    );
+  }
+
+  function isSmallViewport() {
+    // Блокируем когда ширина окна меньше 1024 и это тач-устройство или мобильный UA
+    return window.innerWidth <= 1024;
+  }
+
+  const ua = navigator.userAgent.toLowerCase();
+  const isMobileUA = /(iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm|mobile)/i.test(ua);
+
+  const userBypassed = localStorage.getItem(BYPASS_KEY) === '1';
+  const shouldBlock = (isTouchDevice() || isMobileUA) && isSmallViewport() && !userBypassed;
+  if (shouldBlock) {
+    overlay.classList.add('visible');
+    overlay.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Обработчик кнопки «Открыть всё равно»
+  const bypassBtn = document.getElementById('mobile-bypass-btn');
+  if (bypassBtn) {
+    bypassBtn.addEventListener('click', () => {
+      localStorage.setItem(BYPASS_KEY, '1');
+      overlay.classList.remove('visible');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+  }
+})();
