@@ -445,13 +445,14 @@ body{
   .section-inner h2{ font-size: 24px; }
   .news-grid{ grid-template-columns: 1fr; }
   .stream-status{ padding: 12px; }
-  .platform-status{ padding: 6px 10px; flex-wrap: wrap; }
+  .platform-status{ padding: 8px 12px; gap: 8px; }
   .platform-logo{ width: 18px; height: 18px; }
-  .status-text{ font-size: 13px; }
-  .watch-btn{ padding: 4px 8px; font-size: 11px; margin-left: 0; margin-top: 4px; }
-  .stream-status-header{ flex-direction: column; gap: 8px; align-items: center; }
-  .stream-status-title{ text-align: center !important; font-size: 16px; }
-  .stream-note{ font-size: 12px; padding: 8px; }
+  .status-text{ font-size: 13px; flex: 1; }
+  .watch-btn{ padding: 6px 10px; font-size: 12px; margin-left: auto; }
+  .stream-status-header{ align-items: center; gap: 8px; }
+  .stream-status-title{ text-align: left !important; font-size: 16px; margin: 0; }
+  .refresh-btn{ padding: 6px; }
+  .stream-note{ font-size: 12px; padding: 10px; gap: 6px; }
   .footer-inner{ padding: 16px; }
   .foreign-agent-notice{ margin-top: 12px; padding: 8px 12px; font-size: 10px; }
 }
@@ -491,11 +492,13 @@ body{
   .section-inner{ padding: 8px; }
   .section-inner h2{ font-size: 20px; }
   .card h3{ font-size: 16px; }
-  .stream-status{ padding: 8px; }
-  .platform-status{ padding: 4px 6px; }
-  .status-text{ font-size: 12px; }
-  .watch-btn{ font-size: 10px; padding: 3px 6px; }
-  .stream-note{ font-size: 11px; padding: 6px; }
+  .stream-status{ gap: 10px; padding: 10px; }
+  .platform-status{ padding: 6px 8px; gap: 6px; }
+  .status-text{ font-size: 12px; flex: 1; }
+  .watch-btn{ font-size: 11px; padding: 4px 8px; margin-left: auto; }
+  .stream-status-title{ font-size: 15px; }
+  .refresh-btn{ padding: 5px; }
+  .stream-note{ font-size: 11px; padding: 8px; gap: 5px; }
   .info-icon{ width: 14px; height: 14px; }
   .foreign-agent-notice{ font-size: 9px; padding: 6px 8px; }
   .age-restriction{ font-size: 8px; padding: 1px 4px; }
@@ -512,10 +515,14 @@ body{
   .lead{ font-size: 13px; }
   .btn{ font-size: 12px; padding: 6px 10px; }
   .section-inner h2{ font-size: 18px; }
-  .platform-status{ gap: 4px; }
+  .platform-status{ gap: 4px; align-items: center; }
   .platform-logo{ width: 16px; height: 16px; }
-  .stream-note{ flex-direction: column; gap: 4px; text-align: left; }
-  .info-icon{ align-self: flex-start; }
+  .status-text{ font-size: 11px; flex: 1; }
+  .watch-btn{ font-size: 10px; padding: 3px 6px; margin-left: auto; }
+  .stream-status-title{ font-size: 14px; }
+  .refresh-btn{ padding: 4px; }
+  .stream-note{ flex-direction: row; gap: 4px; text-align: left; font-size: 10px; padding: 6px; }
+  .info-icon{ align-self: flex-start; width: 12px; height: 12px; }
 }
 
 /* Theme Switcher Dropdown */
