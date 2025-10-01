@@ -28,15 +28,13 @@
         <span>Хесус Инсайд</span>
       </a>
       <div class="nav-right">
-        <nav id="nav-actions" class="nav-actions">
-          <a class="nav-link" href="#about">О проекте</a>
-          <a class="nav-link" href="#news">Новости</a>
-          <a class="nav-link" href="#community">Сообщество</a>
-          <a class="nav-link" href="./games.html">Игры</a>
-          <button id="chat-toggle-btn" class="pill">Чат</button>
-          <div class="theme-switcher">
-            <button id="theme-toggle-btn" class="pill">Тема</button>
-            <div id="theme-dropdown" class="theme-dropdown">
+                <div class="nav-links">
+                    <a href="index.html">Главная</a>
+                    <a href="games.html">Игры</a>
+                </div>
+                <div class="theme-switcher">
+                    <button id="theme-toggle-btn" class="pill">Тема</button>
+                    <div id="theme-dropdown" class="theme-dropdown">
               <button class="theme-option" data-theme="twitch">
                 <img src="https://img.freepik.com/premium-vector/twitch-logo_578229-259.jpg" class="theme-logo" alt="Twitch">
                 <span>Twitch</span>
@@ -46,12 +44,22 @@
                 <span>Kick</span>
               </button>
             </div>
-          </div>
-        </nav>
-        <button id="menu-toggle-btn" class="menu-toggle-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-        </button>
-      </div>
+                </div>
+                <div class="chat-switcher">
+                    <button id="chat-select-btn" class="btn">Чат</button>
+                    <div class="chat-options">
+                        <a href="#" data-chat="twitch">Twitch</a>
+                        <a href="#" data-chat="kick">Kick</a>
+                    </div>
+                </div>
+                <button id="chat-toggle-btn" class="btn">Открыть чат</button>
+            </div>
+            <button id="menu-toggle-btn">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+        </div>
     </header>
 
     <main>
@@ -134,7 +142,7 @@
           <p>
             <a class="btn primary" href="https://t.me/jesusavgninside" target="_blank" rel="noopener">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.162.015-.088.03-.174.028-.258a.343.343 0 0 0-.058-.115.33.33 0 0 0-.087-.079.331.331 0 0 0-.115-.046c-.12-.017-1.254.267-2.65 1.022z"/>
+                <path d="M16 8A8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.162.015-.088.03-.174.028-.258a.343.343 0 0 0-.058-.115.33.33 0 0 0-.087-.079.331.331 0 0 0-.115-.046c-.12-.017-1.254.267-2.65 1.022z"/>
               </svg>
               <span>Telegram</span>
             </a>
@@ -143,22 +151,22 @@
       </section>
     </main>
 
-    <div id="twitch-chat-container" class="twitch-chat">
-      <div class="twitch-chat-header">
-        <span>Чат Twitch</span>
-        <button id="chat-close-btn" class="close-btn">&times;</button>
-      </div>
-      <!-- 
-        ВАЖНО: Для работы чата на вашем сайте,
-        замените 'your-domain.com' на ваш реальный домен.
-        Например: parent=jesus-inside.com
-      -->
-      <iframe
-        class="twitch-chat-iframe"
-        src="https://www.twitch.tv/embed/jesusavgn/chat?parent=hesusinside.netlify.app&darkpopout"
-        height="100%"
-        width="100%">
-      </iframe>
+    <div id="chat-container">
+        <div id="twitch-chat-panel" class="chat-panel">
+            <iframe
+                src="https://www.twitch.tv/embed/jesusavgn/chat?parent=hesusinside.netlify.app&darkpopout"
+                height="100%"
+                width="100%">
+            </iframe>
+        </div>
+        <div id="kick-chat-panel" class="chat-panel">
+            <iframe
+                src="https://kick.com/jesusavgn/chatroom"
+                height="100%"
+                width="100%"
+                style="border:none;">
+            </iframe>
+        </div>
     </div>
 
     <footer class="footer">

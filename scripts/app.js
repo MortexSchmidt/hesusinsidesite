@@ -91,28 +91,61 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 })();
 
 // Twitch Chat Toggle
-const chatContainer = document.getElementById('twitch-chat-container');
-const chatToggleBtn = document.getElementById('chat-toggle-btn');
-const chatCloseBtn = document.getElementById('chat-close-btn');
-const chatPanel = document.getElementById('chat-panel');
+const chatContainer = document.getElementById('chat-container');
+const chatToggleButton = document.getElementById('chat-toggle-btn');
+const chatSelectLinks = document.querySelectorAll('.chat-options a');
+const twitchChatPanel = document.getElementById('twitch-chat-panel');
+const kickChatPanel = document.getElementById('kick-chat-panel');
 const body = document.body;
 
 const menuToggleBtn = document.getElementById('menu-toggle-btn');
 const navRight = document.querySelector('.nav-right');
 const mainNav = document.querySelector('.nav');
 
-if (chatContainer && chatToggleBtn && chatCloseBtn) {
-  chatToggleBtn.addEventListener('click', () => {
-    chatContainer.classList.add('is-visible');
+if (chatContainer && chatToggleButton) {
+  // Логика для переключения тем
+  if (themeOptions) {
+      themeOptions.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('is-open');
+      });
+  }
+
+  // --- Логика для чата ---
+  let selectedChat = 'twitch'; // Чат по умолчанию
+  twitchChatPanel.classList.add('is-active'); // Показываем чат твича при загрузке
+
+  // Переключение между чатами
+  chatSelectLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+          e.preventDefault();
+          selectedChat = e.target.dataset.chat;
+
+          // Скрываем оба чата и потом показываем выбранный
+          twitchChatPanel.classList.remove('is-active');
+          kickChatPanel.classList.remove('is-active');
+
+          if (selectedChat === 'twitch') {
+              twitchChatPanel.classList.add('is-active');
+          } else {
+              kickChatPanel.classList.add('is-active');
+          }
+          
+          // На мобильных устройствах сразу открываем чат после выбора
+          if (window.innerWidth <= 820) {
+              chatContainer.classList.add('is-open');
+              body.classList.add('chat-open');
+              // Закрываем мобильное меню, если оно было открыто
+              navRight.classList.remove('is-open');
+              mainNav.classList.remove('is-open');
+          }
+      });
   });
 
-  chatCloseBtn.addEventListener('click', () => {
-    chatContainer.classList.remove('is-visible');
-  });
-
-  chatToggleBtn.addEventListener('click', () => {
-    chatPanel.classList.toggle('is-open');
-    body.classList.toggle('chat-open');
+  // Открытие/закрытие контейнера чата
+  chatToggleButton.addEventListener('click', () => {
+      chatContainer.classList.toggle('is-open');
+      body.classList.toggle('chat-open');
   });
 }
 
