@@ -346,7 +346,7 @@ body{
 .chat-dropdown {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0; /* Выравнивание слева от кнопки */
+  right: 0; /* Выравнивание справа от кнопки */
   background-color: var(--bg-3);
   border-radius: var(--radius);
   padding: 6px;
