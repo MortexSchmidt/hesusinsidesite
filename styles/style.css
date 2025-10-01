@@ -380,7 +380,10 @@ body{
 /* Mobile/Tablet Block Overlay */
 .mobile-block {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0,0,0,0.95);
   display: none;
   align-items: center;
@@ -388,17 +391,19 @@ body{
   z-index: 1000;
   padding: 16px;
   text-align: center;
+  box-sizing: border-box;
 }
 .mobile-block.visible { display: flex; }
 .mobile-block-inner {
   background: var(--bg-2);
   border: var(--border-width) solid var(--border-color);
   border-radius: 12px;
-  max-width: 90%;
   width: 100%;
   max-width: 400px;
   padding: 20px 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  margin: auto;
+  box-sizing: border-box;
 }
 .mobile-block-inner h2 { 
   margin: 0 0 12px; 
@@ -418,6 +423,7 @@ body{
   width: 100%;
   padding: 12px 18px;
   font-size: 15px;
+  box-sizing: border-box;
 }
 
 /* Для очень маленьких экранов */
@@ -427,11 +433,22 @@ body{
   }
   .mobile-block-inner {
     padding: 16px 12px;
+    max-width: calc(100% - 24px);
   }
   .mobile-block-inner h2 {
     font-size: 18px;
   }
   .mobile-block-inner p {
     font-size: 13px;
+  }
+}
+
+/* Для экранов в альбомной ориентации */
+@media (max-height: 500px) {
+  .mobile-block {
+    padding: 8px;
+  }
+  .mobile-block-inner {
+    padding: 16px;
   }
 }
