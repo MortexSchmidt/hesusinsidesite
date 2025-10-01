@@ -141,7 +141,7 @@ body{
   margin: 0 0 8px 0;
   font-size: 18px;
   font-weight: 700;
-  text-align: center;
+  text-align: right;
 }
 .platform-status {
   display: flex;
