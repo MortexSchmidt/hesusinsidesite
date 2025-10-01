@@ -115,9 +115,8 @@ function getTwitchChatSrc() {
 }
 
 function getKickChatSrc() {
-  // Kick не требует parent. Стандартный виджет чата:
-  // Используем /embed/ для чата канала jesusavgn
-  return 'https://kick.com/embed/chat/jesusavgn';
+  // Kick чат виджет - используем правильный URL формат
+  return 'https://kick.com/jesusavgn/chatroom';
 }
 
 function applyChatProvider(provider) {
