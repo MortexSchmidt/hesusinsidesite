@@ -8,18 +8,9 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const switcher = $('.theme-switcher');
   if (!switcher) return;
 
-  const toggleBtn = document.getElementById('theme-toggle-btn');
-  const themeOptions = document.querySelector('.theme-options');
-  const chatContainer = document.getElementById('chat-container');
-  const chatSelectLinks = document.querySelectorAll('.chat-options a');
-  const twitchChatPanel = document.getElementById('twitch-chat-panel');
-  const kickChatPanel = document.getElementById('kick-chat-panel');
-  const chatCloseBtn = document.getElementById('chat-close-btn');
-  const body = document.body;
-
-  const menuToggleBtn = document.getElementById('menu-toggle-btn');
-  const navRight = document.querySelector('.nav-right');
-  const mainNav = document.querySelector('.nav');
+  const toggleBtn = $('#theme-toggle-btn', switcher);
+  const dropdown = $('#theme-dropdown', switcher);
+  const themeOptions = $$('.theme-option', switcher);
 
   // 1. Установить тему при загрузке
   let currentTheme = localStorage.getItem('theme') || 'twitch';
@@ -100,92 +91,16 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 })();
 
 // Twitch Chat Toggle
-const chatContainer = document.getElementById('chat-container');
-const chatToggleButton = document.getElementById('chat-toggle-btn');
-const chatSelectLinks = document.querySelectorAll('.chat-options a');
-const twitchChatPanel = document.getElementById('twitch-chat-panel');
-const kickChatPanel = document.getElementById('kick-chat-panel');
+const chatContainer = document.getElementById('twitch-chat-container');
+const chatToggleBtn = document.getElementById('chat-toggle-btn');
 const chatCloseBtn = document.getElementById('chat-close-btn');
-const body = document.body;
 
-const menuToggleBtn = document.getElementById('menu-toggle-btn');
-const navRight = document.querySelector('.nav-right');
-const mainNav = document.querySelector('.nav');
-
-if (chatContainer && chatToggleButton) {
-  // Логика для переключения тем
-  if (themeOptions) {
-      themeOptions.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdown.classList.toggle('is-open');
-      });
-  }
-
-  // --- Логика для чата ---
-  let selectedChat = 'twitch'; // Чат по умолчанию
-  twitchChatPanel.classList.add('is-active'); // Показываем чат твича при загрузке
-
-  // Переключение между чатами и открытие панели
-  chatSelectLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-          e.preventDefault();
-          selectedChat = e.target.dataset.chat;
-
-          // Скрываем оба чата и потом показываем выбранный
-          twitchChatPanel.classList.remove('is-active');
-          kickChatPanel.classList.remove('is-active');
-
-          if (selectedChat === 'twitch') {
-              twitchChatPanel.classList.add('is-active');
-          } else {
-              kickChatPanel.classList.add('is-active');
-          }
-          
-          // Открываем контейнер чата
-          chatContainer.classList.add('is-open');
-          body.classList.add('chat-open');
-
-          // Закрываем мобильное меню, если оно было открыто
-          if (navRight.classList.contains('is-open')) {
-              navRight.classList.remove('is-open');
-              mainNav.classList.remove('is-open');
-          }
-      });
+if (chatContainer && chatToggleBtn && chatCloseBtn) {
+  chatToggleBtn.addEventListener('click', () => {
+    chatContainer.classList.add('is-visible');
   });
 
-  // Закрытие контейнера чата
   chatCloseBtn.addEventListener('click', () => {
-      chatContainer.classList.remove('is-open');
-      body.classList.remove('chat-open');
+    chatContainer.classList.remove('is-visible');
   });
 }
-
-// Логика для мобильного меню
-if (menuToggleBtn && navRight && mainNav) {
-  menuToggleBtn.addEventListener('click', () => {
-    navRight.classList.toggle('is-open');
-    mainNav.classList.toggle('is-open'); // Для анимации иконки бургера
-  });
-}
-
-// Плавный скролл для якорных ссылок
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    const targetId = this.getAttribute('href');
-    const targetElement = document.querySelector(targetId);
-
-    if (targetElement) {
-      // Добавляем смещение для хедера
-      const headerOffset = 70;
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-           top: offsetPosition,
-           behavior: "smooth"
-      });
-    }
-  });
-});
