@@ -137,11 +137,36 @@ body{
   background: var(--bg-2);
   border-radius: var(--radius);
 }
+.stream-status-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
 .stream-status-title {
-  margin: 0 0 8px 0;
+  margin: 0;
   font-size: 18px;
   font-weight: 700;
   text-align: left !important;
+}
+.refresh-btn {
+  background: #6c757d;
+  border: none;
+  color: white;
+  padding: 6px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.refresh-btn:hover {
+  background: #5a6268;
+  transform: rotate(180deg);
+}
+.refresh-btn:active {
+  transform: rotate(360deg);
 }
 .platform-status {
   display: flex;
@@ -229,11 +254,11 @@ body{
 }
 /* Онлайн состояния */
 .platform-status.online .twitch-dot {
-  background: #9146ff; /* Фиолетовый Twitch */
+  background: #9146ff !important; /* Фиолетовый Twitch */
   animation: pulse 2.4s ease-in-out infinite;
 }
 .platform-status.online .kick-dot {
-  background: #53fc18; /* Зелёный Kick */
+  background: #53fc18 !important; /* Зелёный Kick */
   animation: pulse 2.4s ease-in-out infinite;
 }
 .platform-status.online .status-text {

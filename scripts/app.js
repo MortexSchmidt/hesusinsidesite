@@ -199,6 +199,7 @@ if (chatCloseBtn) {
   const kickDot = document.getElementById('kick-dot');
   const twitchWatch = document.getElementById('twitch-watch');
   const kickWatch = document.getElementById('kick-watch');
+  const refreshBtn = document.getElementById('refresh-status-btn');
 
   if (!twitchStatus || !kickStatus) return;
 
@@ -300,6 +301,14 @@ if (chatCloseBtn) {
   // Начальная проверка
   checkTwitchStatus();
   checkKickStatus();
+
+  // Кнопка обновления статуса
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => {
+      checkTwitchStatus();
+      checkKickStatus();
+    });
+  }
 
   // Обновление каждые 60 секунд
   setInterval(() => {
