@@ -189,6 +189,80 @@ if (chatCloseBtn) {
   });
 })();
 
+// Stream Status Checker
+(function streamStatus() {
+  const twitchStatus = document.getElementById('twitch-status');
+  const kickStatus = document.getElementById('kick-status');
+  const twitchText = document.getElementById('twitch-text');
+  const kickText = document.getElementById('kick-text');
+  const twitchDot = document.getElementById('twitch-dot');
+  const kickDot = document.getElementById('kick-dot');
+
+  if (!twitchStatus || !kickStatus) return;
+
+  // Проверка статуса Twitch через Helix API (требует CORS proxy)
+  async function checkTwitchStatus() {
+    try {
+      // Используем публичный CORS proxy для обхода CORS
+      const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.twitch.tv/jesusavgn'));
+      const data = await response.json();
+      
+      // Простая проверка: если в HTML есть "isLiveBroadcast", значит стрим идёт
+      const isLive = data.contents && data.contents.includes('"isLiveBroadcast":true');
+      
+      if (isLive) {
+        twitchStatus.classList.add('online', 'twitch');
+        twitchText.textContent = 'В эфире';
+      } else {
+        twitchStatus.classList.remove('online', 'twitch');
+        twitchText.textContent = 'Офлайн';
+      }
+    } catch (error) {
+      console.log('Twitch status check failed:', error);
+      twitchStatus.classList.remove('online', 'twitch');
+      twitchText.textContent = 'Статус неизвестен';
+    }
+  }
+
+  // Проверка статуса Kick
+  async function checkKickStatus() {
+    try {
+      // Используем публичный CORS proxy
+      const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://kick.com/jesusavgn'));
+      const data = await response.json();
+      
+      // Простая проверка: если в HTML есть признаки live стрима
+      const isLive = data.contents && (
+        data.contents.includes('"is_live":true') || 
+        data.contents.includes('livestream') ||
+        data.contents.includes('live-indicator')
+      );
+      
+      if (isLive) {
+        kickStatus.classList.add('online', 'kick');
+        kickText.textContent = 'В эфире';
+      } else {
+        kickStatus.classList.remove('online', 'kick');
+        kickText.textContent = 'Офлайн';
+      }
+    } catch (error) {
+      console.log('Kick status check failed:', error);
+      kickStatus.classList.remove('online', 'kick');
+      kickText.textContent = 'Статус неизвестен';
+    }
+  }
+
+  // Начальная проверка
+  checkTwitchStatus();
+  checkKickStatus();
+
+  // Обновление каждые 60 секунд
+  setInterval(() => {
+    checkTwitchStatus();
+    checkKickStatus();
+  }, 60000);
+})();
+
 // Блокировка для мобильных и планшетов
 (function deviceBlocker(){
   const overlay = document.getElementById('mobile-block');

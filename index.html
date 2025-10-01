@@ -83,11 +83,17 @@
         </div>
 
         <div class="island">
-          <div class="island-pill">
-            <span class="dot"></span>
-            <span>Статус: офлайн</span>
-            <span class="sep"></span>
-            <span class="muted">последний эфир: —</span>
+          <div class="stream-status">
+            <div class="platform-status" id="twitch-status">
+              <img src="https://img.freepik.com/premium-vector/twitch-logo_578229-259.jpg" class="platform-logo" alt="Twitch">
+              <span class="dot twitch-dot" id="twitch-dot"></span>
+              <span class="status-text" id="twitch-text">Проверяем...</span>
+            </div>
+            <div class="platform-status" id="kick-status">
+              <img src="https://img.freepik.com/premium-vector/kick-logo-vector-download-kick-streaming-icon-logo-vector-eps_691560-10814.jpg" class="platform-logo" alt="Kick">
+              <span class="dot kick-dot" id="kick-dot"></span>
+              <span class="status-text" id="kick-text">Проверяем...</span>
+            </div>
           </div>
           <div class="widgets">
             <article class="card">

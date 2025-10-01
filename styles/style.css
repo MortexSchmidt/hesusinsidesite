@@ -129,6 +129,58 @@ body{
 .disclaimer{ margin-top: 18px; font-size: 13px; color: var(--text-muted); }
 
 .island{ display:flex; flex-direction:column; gap:18px }
+.stream-status {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-2);
+  border-radius: var(--radius);
+}
+.platform-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg-3);
+  border-radius: var(--radius);
+  transition: all 0.3s ease;
+}
+.platform-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.status-text {
+  font-weight: 600;
+  font-size: 14px;
+}
+.twitch-dot {
+  background: #6c757d; /* Серый по умолчанию */
+}
+.kick-dot {
+  background: #6c757d; /* Серый по умолчанию */
+}
+/* Онлайн состояния */
+.platform-status.online .twitch-dot {
+  background: #9146ff; /* Фиолетовый Twitch */
+  animation: pulse 2.4s ease-in-out infinite;
+}
+.platform-status.online .kick-dot {
+  background: #53fc18; /* Зелёный Kick */
+  animation: pulse 2.4s ease-in-out infinite;
+}
+.platform-status.online .status-text {
+  color: var(--text);
+}
+.platform-status.online.twitch .status-text {
+  color: #9146ff;
+}
+.platform-status.online.kick .status-text {
+  color: #53fc18;
+}
 .island-pill{
   display:flex;
   align-items:center;
