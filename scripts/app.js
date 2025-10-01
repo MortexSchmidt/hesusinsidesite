@@ -19,6 +19,10 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   // 2. Показать/скрыть дропдаун
   toggleBtn.addEventListener('click', (e) => {
     e.stopPropagation();
+    // Закрыть дропдаун чата если открыт
+    const chatDropdown = document.getElementById('chat-dropdown');
+    if (chatDropdown) chatDropdown.classList.remove('is-open');
+    
     dropdown.classList.toggle('is-open');
   });
 
@@ -151,6 +155,10 @@ if (chatCloseBtn) {
   if (toggleBtn) {
     toggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
+      // Закрыть дропдаун темы если открыт
+      const themeDropdown = document.getElementById('theme-dropdown');
+      if (themeDropdown) themeDropdown.classList.remove('is-open');
+      
       dropdown.classList.toggle('is-open');
     });
   }
