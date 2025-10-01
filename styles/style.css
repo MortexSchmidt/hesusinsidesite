@@ -1,0 +1,342 @@
+/*
+  Хесус Инсайд — Twitch.tv Redesign
+  - Фирменные цвета Twitch: фиолетовый, тёмно-серый.
+  - Чистая типографика, закруглённые углы.
+  - Эстетика игровой стриминговой платформы.
+*/
+
+:root{
+  --bg: #0e0e10;
+  --bg-2: #18181b;
+  --bg-3: #1f1f23;
+  --text: #efeff1;
+  --text-muted: #adadb8;
+  --primary: #9146ff; /* Twitch purple */
+  --border-color: #3a3a3d;
+  --radius: 6px;
+  --border-width: 1px;
+}
+
+[data-theme="kick"] {
+  --bg: #0b0f1a;
+  --bg-2: #1a1f2e;
+  --bg-3: #2a2f3e;
+  --text: #ffffff;
+  --text-muted: #a0a0a0;
+  --primary: #53fc18; /* Kick green */
+  --border-color: #3a3f4e;
+}
+
+[data-theme="kick"] .btn.primary {
+  color: #0b0f1a; /* Dark text for green button */
+}
+
+[data-theme="kick"] .btn.primary:hover {
+  background: #48e014; /* Darker green on hover */
+}
+
+[data-theme="kick"] .btn.ghost:hover,
+[data-theme="kick"] .pill:hover,
+[data-theme="kick"] .chip:hover {
+  background: var(--border-color);
+}
+
+*{ box-sizing: border-box }
+html,body{ height: 100% }
+body{
+  margin:0;
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Nav */
+.nav{
+  position: sticky;
+  top: 0;
+  padding: 12px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  z-index: 10;
+  background-color: var(--bg-2);
+  border-bottom: var(--border-width) solid var(--border-color);
+  box-shadow: 0 1px 5px rgba(0,0,0,.2);
+}
+.brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; font-weight:700; font-size: 18px; }
+.brand img, .brand-mini img {
+  border-radius: 999px;
+  object-fit: cover;
+}
+.nav-actions{ display:flex; align-items:center; gap:4px; }
+.nav-link{ color: var(--text); text-decoration:none; padding: 8px 12px; border-radius: var(--radius); font-weight: 600; }
+.nav-link:hover{ background: var(--bg-3); }
+.pill{
+  border: none;
+  background: var(--bg-3);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+}
+.pill:hover {
+  background: #3a3a3d;
+}
+
+
+/* Hero */
+.hero{ max-width:1200px; margin: 56px auto 24px; padding: 0 20px; display:grid; grid-template-columns: 1fr 1fr; gap:48px; align-items: center }
+.hero-copy h1{ font-size: clamp(40px, 6vw, 64px); margin: 0 0 10px; letter-spacing:-0.02em; font-weight: 800; color: var(--primary); }
+.lead{ font-size: clamp(18px, 2vw, 20px); color: var(--text-muted); max-width: 56ch; }
+.cta{ display:flex; gap:12px; margin-top:24px }
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  text-decoration:none;
+  font-weight:600;
+  border: none;
+  transition: background-color 0.2s;
+}
+.btn.primary{
+  color: white;
+  background: var(--primary);
+}
+.btn.primary:hover {
+  background: #772ce8;
+}
+.btn.primary svg {
+  margin-right: 8px;
+}
+.btn.primary {
+  display: inline-flex;
+  align-items: center;
+}
+.btn.ghost{
+  color: var(--text);
+  background: var(--bg-3);
+}
+.btn.ghost:hover {
+  background: #3a3a3d;
+}
+.disclaimer{ margin-top: 18px; font-size: 13px; color: var(--text-muted); }
+
+.island{ display:flex; flex-direction:column; gap:18px }
+.island-pill{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 12px 16px;
+  background: var(--bg-2);
+  border-radius: var(--radius);
+}
+.dot{ width:10px; height:10px; border-radius:999px; background:#eb0400; display:inline-block; }
+.dot.live{ background:#22c55e; animation: pulse 2.4s ease-in-out infinite }
+.sep{ flex:1 }
+.muted{ color: var(--text-muted); }
+
+@keyframes pulse{ 0%{ box-shadow: 0 0 0 0 rgba(34,197,94,.45)} 70%{ box-shadow: 0 0 0 8px rgba(34,197,94,0)} 100%{ box-shadow: 0 0 0 0 rgba(34,197,94,0)} }
+
+.widgets{ display:grid; grid-template-columns: repeat(3,1fr); gap:18px }
+.card{ padding: 20px; min-height: 160px; display: flex; flex-direction: column; background: var(--bg-2); border-radius: var(--radius); }
+.card h3{ margin:0 0 8px; font-size: 20px; font-weight: 700; }
+.card p { flex-grow: 1; color: var(--text-muted); }
+.chip{
+  display:inline-flex;
+  align-items:center;
+  padding: 5px 10px;
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration:none;
+  background: var(--bg-3);
+  font-size: 13px;
+  font-weight: 600;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+.chip:hover {
+  background: #3a3a3d;
+}
+.badge{ font-size: 12px; background: var(--bg-3); color: var(--text); padding: 4px 8px; border-radius: 999px; font-weight: 600; }
+.row{ display:flex; align-items:center; gap:10px }
+
+/* Sections */
+.section{ padding: 40px 20px }
+.section-inner{ max-width: 1200px; margin: 0 auto; padding: 24px; background: var(--bg-2); border-radius: var(--radius); }
+.section-inner h2 { font-size: 32px; font-weight: 700; margin-top: 0; }
+.bullets{ margin: 12px 0 0 0; padding-left: 22px; }
+.bullets li{ margin:8px 0; font-size: 16px; color: var(--text-muted); }
+
+/* News */
+.news-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 18px }
+.news-item{ padding: 18px; background: var(--bg-3); border-radius: var(--radius); }
+.news-item time{ font-size: 14px; color: var(--text-muted); display: block; margin-bottom: 8px; }
+.news-item h3 { font-size: 20px; margin: 0 0 8px; font-weight: 600; }
+.news-item p { color: var(--text-muted); }
+
+/* Footer */
+.footer{ margin: 40px auto; max-width: 1200px; padding: 0 20px; }
+.footer-inner{ display:grid; grid-template-columns: 1fr 2fr 1fr; align-items:center; gap: 16px; padding: 20px; background: var(--bg-2); border-radius: var(--radius); }
+.brand-mini{ display:flex; align-items:center; gap:8px; font-weight: 700; }
+.small{ font-size: 13px; color: var(--text-muted); }
+.footer-nav{ display:flex; gap:4px; justify-content:flex-end }
+
+/* Убираем анимацию градиента */
+.gradient-text{
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: var(--primary);
+}
+
+/* Scroll animations */
+.section, .hero > *, .widgets > *, .news-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.section.in-view, .hero > *.in-view, .widgets > *.in-view, .news-item.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay for staggered animations */
+.hero-copy > *:nth-child(2) { transition-delay: 100ms; }
+.hero-copy > *:nth-child(3) { transition-delay: 200ms; }
+.hero-copy > *:nth-child(4) { transition-delay: 300ms; }
+.widgets > *:nth-child(1) { transition-delay: 100ms; }
+.widgets > *:nth-child(2) { transition-delay: 200ms; }
+.widgets > *:nth-child(3) { transition-delay: 300ms; }
+
+
+/* Responsive */
+@media (max-width: 980px){
+  .hero{ grid-template-columns: 1fr; gap: 32px; }
+  .widgets{ grid-template-columns: 1fr 1fr; }
+  .footer-inner{ grid-template-columns: 1fr; text-align: center; }
+  .footer-nav { justify-content: center; }
+}
+@media (max-width: 640px){
+  .nav{ padding: 10px; }
+  .hero{ margin-top: 34px }
+  .widgets{ grid-template-columns: 1fr }
+  .news-grid{ grid-template-columns: 1fr }
+}
+
+/* Theme Switcher Dropdown */
+.theme-switcher {
+  position: relative;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: var(--bg-3);
+  border-radius: var(--radius);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 150px;
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+  
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+
+.theme-dropdown.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+
+.theme-option:hover {
+  background-color: var(--bg-2);
+}
+
+.theme-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+/* Twitch Chat */
+.twitch-chat {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 350px;
+  max-width: 90%;
+  background-color: var(--bg);
+  border-left: var(--border-width) solid var(--border-color);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  
+  /* Hidden by default */
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.twitch-chat.is-visible {
+  transform: translateX(0);
+  box-shadow: -5px 0 25px rgba(0,0,0,.3);
+}
+
+.twitch-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: var(--bg-2);
+  border-bottom: var(--border-width) solid var(--border-color);
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 24px;
+  line-height: 1;
+  padding: 0 4px;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: var(--text);
+}
+
+.twitch-chat-iframe {
+  flex-grow: 1;
+  border: none;
+}

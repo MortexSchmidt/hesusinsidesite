@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0b0f1a"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#7dd3fc"/>
+      <stop offset=".5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#f0abfc"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="260" cy="120" r="200" fill="#7dd3fc" opacity="0.2" filter="url(#blur)"/>
+  <circle cx="1080" cy="520" r="240" fill="#a78bfa" opacity="0.2" filter="url(#blur)"/>
+  <g transform="translate(100,140)">
+    <rect x="0" y="0" width="1000" height="350" rx="32" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+    <g transform="translate(40,40)">
+      <rect x="0" y="0" width="80" height="80" rx="20" fill="url(#a)"/>
+      <path d="M24 56c0-10.493 8.507-19 19-19s19 8.507 19 19M43 36c-7 0-13-6-13-13s6-13 13-13 13 6 13 13-6 13-13 13Z" stroke="#0b0f1a" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <text x="120" y="48" font-family="Inter, system-ui, -apple-system" font-size="46" fill="white" font-weight="700">Хесус Инсайд</text>
+      <text x="120" y="90" font-family="Inter, system-ui, -apple-system" font-size="20" fill="#cbd5e1">Liquid glass • iOS vibes</text>
+    </g>
+  </g>
+</svg>
